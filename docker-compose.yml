@@ -1,0 +1,32 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: songee
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: songee
+
+  # spring-boot-app:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - mysql
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/product
+  #     SPRING_DATASOURCE_USERNAME: product_user
+  #     SPRING_DATASOURCE_PASSWORD: product_user_password
+
+  # react-app:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:80"
