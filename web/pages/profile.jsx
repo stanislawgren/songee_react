@@ -1,4 +1,21 @@
 export const ProfilePage = () => {
+
+  const userService = async () => {
+    return new Promise((resolve, reject) => {
+      axios({
+        method: 'GET',
+        url: 'http://localhost:8080' + "/api/users",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+        .then((result) => resolve(result.data))
+        .catch((error) => resolve(error))
+    })
+
+  }
+
   return (
     <main>
       <div className="container-left-profile">

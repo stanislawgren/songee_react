@@ -3,7 +3,7 @@ package com.songee.songeebackend.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user_settings")
 public class Settings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
