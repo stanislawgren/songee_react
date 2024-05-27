@@ -2,6 +2,8 @@ package com.songee.songeebackend.controller;
 
 import com.songee.songeebackend.dto.UserDto;
 import com.songee.songeebackend.entity.User;
+import com.songee.songeebackend.entity.UserProfile;
+import com.songee.songeebackend.repository.UserProfileRepository;
 import com.songee.songeebackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import java.security.Principal;
 public class UserController {
 
     private final UserRepository repo;
+    private final UserProfileRepository profileRepo;
 
     @GetMapping("/users")
     public ResponseEntity<String> getAllUsers(){
@@ -27,14 +30,47 @@ public class UserController {
     public ResponseEntity<UserDto> getUser(Principal principal){
 
         Optional<User> userOptional = repo.findByUsername(principal.getName());
+
+
+
         if (userOptional.isPresent()) {
+
             User user = userOptional.get();
-            return ResponseEntity.ok(UserDto
-                    .builder()
-                            .username(userOptional.get().getUsername())
-                            .id(userOptional.get().getId())
-                            .mail(userOptional.get().getMail())
-                    .build());
+
+            Optional<UserProfile> userProfile = profileRepo.findByUserId(user.getId());
+
+            UserProfile profile = null;
+
+            if (userProfile.isPresent()) {
+                profile = userProfile.get();
+            }
+
+            if(profile != null){
+                return ResponseEntity.ok(UserDto
+                        .builder()
+                        .username(user.getUsername())
+                        .id(user.getId())
+                        .mail(user.getMail())
+                        .age(profile.getAge())
+                        .location(profile.getLocation())
+                        .description(profile.getDescription())
+                        .favouriteArtist(profile.getFavouriteArtist())
+                        .favouriteSongTitle(profile.getFavouriteSongTitle())
+                        .favouriteSongArtist(profile.getFavouriteSongArtist())
+                        .lastName(profile.getLastName())
+                        .firstName(profile.getFirstName())
+                        .gender(profile.getGender())
+                        .avatar(profile.getAvatar())
+                        .build());
+            }
+            else {
+                return ResponseEntity.ok(UserDto
+                        .builder()
+                        .username(user.getUsername())
+                        .id(user.getId())
+                        .mail(user.getMail())
+                        .build());
+            }
         } else {
             return ResponseEntity.notFound().build();
         }
