@@ -3,6 +3,12 @@ import axios from 'axios';
 
 export const RegisterPage = () => {
 
+  useEffect(()=>{
+    if(localStorage.getItem('token') != null){
+      window.location.href = '/'
+    }
+  },[])
+
   const [login, setLogin] = useState()
   const [password, setPassword] = useState()
   const [passwordRepeat, setPasswordRepeat] = useState()

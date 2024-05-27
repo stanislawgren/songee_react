@@ -1,4 +1,8 @@
+import { useOutletContext } from "react-router-dom";
+
 export const ChatPage = () => {
+  const [xuser] = useOutletContext()
+
   return (
     <main>
       <div className="chat-container">

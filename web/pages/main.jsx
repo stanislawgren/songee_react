@@ -1,32 +1,10 @@
-import { useEffect } from "react";
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { getInitialUser } from "../services/userService";
+import { useOutletContext } from "react-router-dom";
 
 export const MainPage = () => {
 
-  const userService = async () => {
-    return new Promise((resolve, reject) => {
-      axios({
-        method: 'GET',
-        url: 'http://localhost:8080' + "/api/user/17",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-        .then((result) => resolve(result.data))
-        .catch((error) => resolve(error))
-    })
-
-  }
-
-  const getUser = async () => {
-    let res = await userService()
-    console.log(res)
-  }
-
-  useEffect(() => {
-    getUser()
-  }, [])
+  const [xuser] = useOutletContext()
 
   return (
     <main>

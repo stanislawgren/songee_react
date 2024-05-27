@@ -1,20 +1,8 @@
+import { useOutletContext } from "react-router-dom";
+
 export const ProfilePage = () => {
 
-  const userService = async () => {
-    return new Promise((resolve, reject) => {
-      axios({
-        method: 'GET',
-        url: 'http://localhost:8080' + "/api/users",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-        .then((result) => resolve(result.data))
-        .catch((error) => resolve(error))
-    })
-
-  }
+  const [xuser] = useOutletContext()
 
   return (
     <main>

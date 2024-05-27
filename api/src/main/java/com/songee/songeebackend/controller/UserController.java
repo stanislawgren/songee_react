@@ -1,5 +1,6 @@
 package com.songee.songeebackend.controller;
 
+import com.songee.songeebackend.dto.UserDto;
 import com.songee.songeebackend.entity.User;
 import com.songee.songeebackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api")
@@ -21,8 +23,26 @@ public class UserController {
         return ResponseEntity.ok("Działa");
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<UserDto> getUser(Principal principal){
+
+        Optional<User> userOptional = repo.findByUsername(principal.getName());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return ResponseEntity.ok(UserDto
+                    .builder()
+                            .username(userOptional.get().getUsername())
+                            .id(userOptional.get().getId())
+                            .mail(userOptional.get().getMail())
+                    .build());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
     @GetMapping("/user/{id}")
-    public ResponseEntity<String> getUser(@PathVariable Integer id){
+    public ResponseEntity<String> getUserById(@PathVariable Integer id){
         System.out.println(id);
         Optional<User> userOptional = repo.findById(id);
         if (userOptional.isPresent()) {

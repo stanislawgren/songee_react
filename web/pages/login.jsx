@@ -4,6 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
 
+  useEffect(() => {
+    if (localStorage.getItem('token') != null) {
+      window.location.href = '/'
+    }
+  }, [])
+
+
   const [login, setLogin] = useState()
   const [password, setPassword] = useState()
 
@@ -21,16 +28,17 @@ export const LoginPage = () => {
         }
       })
         .then((result) => resolve(result.data))
-        .catch((error) => resolve(error))
+        .catch((error) => resolve(error.response))
     })
 
   }
 
   const handleLogin = async () => {
     let res = await loginSevice()
+    console.log(res)
 
-    if(res.token){
-      localStorage.setItem("token", res.token); 
+    if (res.token) {
+      localStorage.setItem("token", res.token);
       window.location.href = "/"
     }
   }
