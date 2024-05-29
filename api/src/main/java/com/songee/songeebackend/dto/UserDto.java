@@ -12,8 +12,17 @@ public class UserDto {
     public String username;
     public String mail;
     public Long id;
-//    public String role;
-//    public Integer age;
-//    public String avatar;
-//    public String description;
+    public Integer age;
+    public String firstName;
+    public String lastName;
+    public Character gender;
+    public String favouriteSongTitle;
+    public String favouriteArtist;
+    public String description;
+    public String favouriteSongArtist;
+    public int spotify;
+    public int x2fa;
+    public int phone;
+    public String location;
+    public String avatar;
 }

@@ -1,14 +1,14 @@
-@import "./auth.scss";
-@import "./main.scss";
-@import "./profile.scss";
-@import "./chat.scss";
-@import url("https://fonts.googleapis.com/css?family=Noto Sans");
+@import './auth.scss';
+@import './main.scss';
+@import './profile.scss';
+@import './chat.scss';
+@import url('https://fonts.googleapis.com/css?family=Noto Sans');
 
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 html {
     background-color: #1c1b16;
-    font-family: "Noto Sans";
+    font-family: 'Noto Sans';
     font-size: 0.9rem;
     overflow-x: hidden;
 }

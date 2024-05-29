@@ -3,6 +3,7 @@ package com.songee.songeebackend.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class User implements UserDetails {
 
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,10 +46,6 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     @Override

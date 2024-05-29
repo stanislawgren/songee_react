@@ -1,9 +1,15 @@
 package com.songee.songeebackend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Entity
 @Table(name = "user_settings")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Settings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
