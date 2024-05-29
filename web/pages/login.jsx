@@ -32,7 +32,6 @@ export const LoginPage = () => {
 
     const handleLogin = async () => {
         let res = await loginSevice()
-        console.log(res)
 
         if (res.token) {
             localStorage.setItem('token', res.token)
