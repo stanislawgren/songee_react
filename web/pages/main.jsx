@@ -1,7 +1,19 @@
+import { useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom'
+import { getUserList } from '../services/userService'
 
 export const MainPage = () => {
     const [xuser] = useOutletContext()
+
+    useEffect(() => {
+        getUsers()
+    }, [])
+
+    const getUsers = async () => {
+        let res = await getUserList()
+
+        console.log(res)
+    }
 
     console.log(xuser)
 
