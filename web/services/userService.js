@@ -31,3 +31,18 @@ export const updateUserDetails = async (data) => {
     })
 }
 
+export const getUserList = async () => {
+    return new Promise((resolve, reject) => {
+        axios({
+            method: 'GET',
+            url: 'http://localhost:8080' + '/api/users/list',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+        })
+            .then((result) => resolve(result.data))
+            .catch((error) => resolve(error.response))
+    })
+}
+

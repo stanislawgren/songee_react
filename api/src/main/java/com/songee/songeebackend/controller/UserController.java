@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.security.Principal;
 
@@ -21,10 +23,6 @@ public class UserController {
     private final UserRepository repo;
     private final UserProfileRepository profileRepo;
 
-    @GetMapping("/users")
-    public ResponseEntity<String> getAllUsers(){
-        return ResponseEntity.ok("Działa");
-    }
 
     @GetMapping("/user")
     public ResponseEntity<UserDto> getUser(Principal principal) {
@@ -78,6 +76,38 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/users/list")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> userDtoList = new ArrayList<>();
+
+        // Pobierz wszystkich użytkowników z repozytorium
+        List<User> users = repo.findAll();
+
+        for (User user : users) {
+            Optional<UserProfile> userProfile = profileRepo.findByUserId(user.getId());
+
+            UserProfile profile = userProfile.orElse(null); // Zwróć null, jeśli brak profilu
+
+            userDtoList.add(UserDto.builder()
+                    .username(user.getUsername())
+                    .id(user.getId())
+                    .mail(user.getMail())
+                    .age(profile != null ? profile.getAge() : null)
+                    .location(profile != null ? profile.getLocation() : null)
+                    .description(profile != null ? profile.getDescription() : null)
+                    .favouriteArtist(profile != null ? profile.getFavouriteArtist() : null)
+                    .favouriteSongTitle(profile != null ? profile.getFavouriteSongTitle() : null)
+                    .favouriteSongArtist(profile != null ? profile.getFavouriteSongArtist() : null)
+                    .lastName(profile != null ? profile.getLastName() : null)
+                    .firstName(profile != null ? profile.getFirstName() : null)
+                    .gender(profile != null ? profile.getGender() : null)
+                    .avatar(profile != null ? profile.getAvatar() : null)
+                    .build());
+        }
+
+        return ResponseEntity.ok(userDtoList);
     }
 
     @PutMapping("/user/update/details")

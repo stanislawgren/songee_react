@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { updateUserDetails } from '../services/userService';
+import axios from 'axios';
 
 export const ProfilePage = () => {
     const [xuser] = useOutletContext();
@@ -18,6 +19,33 @@ export const ProfilePage = () => {
         genreInput: '',
         genresList: []
     });
+
+    const fileInputRef = useRef(null);
+
+    const handleButtonClick = () => {
+        fileInputRef.current.click();
+    };
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            axios.post('http://localhost:8080/api/file/avatar', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            })
+                .then(response => {
+                    console.log('File uploaded successfully', response.data);
+                })
+                .catch(error => {
+                    console.error('Error uploading file', error);
+                });
+        }
+    };
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -58,10 +86,10 @@ export const ProfilePage = () => {
             <div className="container-left-profile">
                 <div className="profile-wrapper">
                     <button className="edit-profile-button" id="home-page-button">
-                        <span className="material-icons">edit</span>
+                        <span className="material-icons" onClick={handleButtonClick}>edit</span>
                     </button>
                     <img id="avatar" src="https://www.w3schools.com/howto/img_avatar.png"></img>
-                    <input type="file" id="avatar-input" hidden accept="image/*" />
+                    <input type="file" id="avatar-input" hidden accept="image/*" onChange={handleFileChange} ref={fileInputRef} />
                     <span className="profile-wrapper-credencials">
                         <span id="profile-wrapper-username">{xuser?.username}</span>
 
