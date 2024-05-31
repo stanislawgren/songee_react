@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { getUserList } from '../services/userService'
+import { OtherProfileComponent } from '../src/components/OtherProfileComponents'
 
 export const MainPage = () => {
     const [xuser] = useOutletContext()
+    const [userList, setUserList] = useState([])
 
     useEffect(() => {
         getUsers()
@@ -12,10 +14,16 @@ export const MainPage = () => {
     const getUsers = async () => {
         let res = await getUserList()
 
-        console.log(res)
+        setUserList(res)
     }
 
-    console.log(xuser)
+    const handleSwipe = (id) => {
+        setTimeout(() => {
+            const newList = userList.filter((l) => l.id !== id)
+            setUserList(newList)
+        }, 300)
+
+    }
 
     return (
         <main>
@@ -26,9 +34,9 @@ export const MainPage = () => {
                     <span className="index-wrapper-credencials">
                         <span>
                             <span id="profile-wrapper-username">{xuser?.username}</span>
-                            <span id="profile-wrapper-age"></span>
+                            {xuser?.age ? <span id="profile-wrapper-age">{", " + xuser.age}</span> : null}
                         </span>
-                        <span id="profile-wrapper-location">location</span>
+                        <span id="profile-wrapper-location">{xuser?.location}</span>
                         <button
                             onClick={() => {
                                 window.location.href = '/profile'
@@ -45,6 +53,7 @@ export const MainPage = () => {
                         id="fav-song-artist"
                         className="profile-input"
                         placeholder="Favorite song artist"
+                        value={xuser?.favouriteSongArtist ? xuser?.favouriteSongArtist : undefined}
                         disabled
                     />
                     <input
@@ -52,6 +61,7 @@ export const MainPage = () => {
                         id="fav-song-title"
                         className="profile-input"
                         placeholder="Favorite song title"
+                        value={xuser?.favouriteSongTitle ? xuser?.favouriteSongTitle : undefined}
                         disabled
                     />
                     <h2>Favourite Artist</h2>
@@ -60,16 +70,22 @@ export const MainPage = () => {
                         id="fav-artist"
                         className="profile-input"
                         placeholder="Favourite artist"
+                        value={xuser?.favouriteArtist ? xuser?.favouriteArtist : undefined}
                         disabled
                     />
-                    <h2>Favourite Genres</h2>
-                    <div id="user-genres"></div>
+                    {/* <h2>Favourite Genres</h2>
+                    <div id="user-genres"></div> */}
                 </div>
             </div>
             <div className="main-page-profiles-conatiner">
-                <div className="main-page-profile-container">
+
+                {userList.length ? userList.map((user, index) => {
+                    if (user.id != xuser.id)
+                        return <OtherProfileComponent user={user} key={index} handleSwipe={() => handleSwipe(user.id)} xuser={xuser} />
+                    else userList.splice(index, 1)
+                }) : <div className="main-page-profile-container">
                     <span className="span-colors">Unfortunately, There is no more profiles to show.</span>
-                </div>
+                </div>}
             </div>
         </main>
     )

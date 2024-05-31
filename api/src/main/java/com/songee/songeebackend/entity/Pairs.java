@@ -1,9 +1,15 @@
 package com.songee.songeebackend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Entity
 @Table(name = "pairs")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pairs {
 
     @Id
