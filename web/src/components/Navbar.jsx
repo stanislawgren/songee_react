@@ -1,3 +1,5 @@
+import { MenuList } from "./MenuList"
+
 export const Navbar = () => {
     return (
         <nav>
@@ -9,11 +11,13 @@ export const Navbar = () => {
                 </button>
                 <a className="nav-title">SONGEE</a>
                 <button className="nav-button" id="menu-button" onClick={()=>{
-                    window.location.href = "/"
+                    document.getElementsByClassName("custom-menu")[0].classList.toggle("menu-active")
                 }}>
                     <span className="material-icons">menu</span>
                 </button>
+                <MenuList />
             </div>
+            
         </nav>
     )
 }

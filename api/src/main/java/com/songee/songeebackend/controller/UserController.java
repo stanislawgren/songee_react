@@ -45,9 +45,6 @@ public class UserController {
                 if (userProfile.isPresent()) {
 
                     UserProfile profile = userProfile.get();
-
-
-                    if (profile != null) {
                         return ResponseEntity.ok(UserDto
                                 .builder()
                                 .username(user.getUsername())
@@ -64,14 +61,7 @@ public class UserController {
                                 .gender(profile.getGender())
                                 .avatar(profile.getAvatar())
                                 .build());
-                    } else {
-                        return ResponseEntity.ok(UserDto
-                                .builder()
-                                .username(user.getUsername())
-                                .id(user.getId())
-                                .mail(user.getMail())
-                                .build());
-                    }
+
                 } else {
                     return ResponseEntity.notFound().build();
                 }
