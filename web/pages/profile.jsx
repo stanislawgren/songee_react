@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from 'react';
-import { useOutletContext } from 'react-router-dom';
-import { updateUserDetails } from '../services/userService';
-import axios from 'axios';
+import { useEffect, useState, useRef } from 'react'
+import { useOutletContext } from 'react-router-dom'
+import { updateUserDetails } from '../services/userService'
+import axios from 'axios'
 
 export const ProfilePage = () => {
-    const [xuser] = useOutletContext();
+    const [xuser] = useOutletContext()
 
     const [formData, setFormData] = useState({
         age: 0,
@@ -17,59 +17,60 @@ export const ProfilePage = () => {
         gender: '',
         description: '',
         genreInput: '',
-        genresList: []
-    });
+        genresList: [],
+    })
 
-    const fileInputRef = useRef(null);
+    const fileInputRef = useRef(null)
 
     const handleButtonClick = () => {
-        fileInputRef.current.click();
-    };
+        fileInputRef.current.click()
+    }
 
     const handleFileChange = (event) => {
-        const file = event.target.files[0];
+        const file = event.target.files[0]
         if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
+            const formData = new FormData()
+            formData.append('file', file)
 
-            axios.post('http://localhost:8080/api/file/avatar', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-            })
-                .then(response => {
-                    console.log('File uploaded successfully', response.data);
+            axios
+                .post('http://localhost:8080/api/file/avatar', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
                 })
-                .catch(error => {
-                    console.error('Error uploading file', error);
-                });
+                .then((response) => {
+                    console.log('File uploaded successfully', response.data)
+                })
+                .catch((error) => {
+                    console.error('Error uploading file', error)
+                })
         }
-    };
+    }
 
     const handleChange = (e) => {
-        let { name, value } = e.target;
+        let { name, value } = e.target
 
         if (name === 'age' && value) value = parseInt(value)
 
-        setFormData(prevState => ({
+        setFormData((prevState) => ({
             ...prevState,
-            [name]: value
-        }));
-    };
+            [name]: value,
+        }))
+    }
 
     const handleGenreAdd = () => {
-        setFormData(prevState => ({
+        setFormData((prevState) => ({
             ...prevState,
             genresList: [...prevState.genresList, prevState.genreInput],
-            genreInput: ''
-        }));
-    };
+            genreInput: '',
+        }))
+    }
 
     useEffect(() => {
-        setFormData(form => ({
+        setFormData((form) => ({
             ...form,
-            ...xuser
+            ...xuser,
         }))
     }, [xuser])
 
@@ -79,21 +80,37 @@ export const ProfilePage = () => {
         console.log(res)
     }
 
-    const getValue = (value) => value === null ? '' : value;
+    const getValue = (value) => (value === null ? '' : value)
 
     return (
         <main>
             <div className="container-left-profile">
                 <div className="profile-wrapper">
                     <button className="edit-profile-button" id="home-page-button">
-                        <span className="material-icons" onClick={handleButtonClick}>edit</span>
+                        <span className="material-icons" onClick={handleButtonClick}>
+                            edit
+                        </span>
                     </button>
-                    <img id="avatar" src="https://www.w3schools.com/howto/img_avatar.png"></img>
-                    <input type="file" id="avatar-input" hidden accept="image/*" onChange={handleFileChange} ref={fileInputRef} />
+                    <img
+                        id="avatar"
+                        src={
+                            xuser?.avatar
+                                ? './../../api/' + xuser.avatar
+                                : 'https://www.w3schools.com/howto/img_avatar.png'
+                        }
+                    ></img>
+                    <input
+                        type="file"
+                        id="avatar-input"
+                        hidden
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        ref={fileInputRef}
+                    />
                     <span className="profile-wrapper-credencials">
                         <span id="profile-wrapper-username">{xuser?.username}</span>
 
-                        <span id="profile-wrapper-age">{formData.age ? ", " + formData.age : ""}</span>
+                        <span id="profile-wrapper-age">{formData.age ? ', ' + formData.age : ''}</span>
                     </span>
                 </div>
                 <div className="container-left-profile-inside">
@@ -213,8 +230,10 @@ export const ProfilePage = () => {
                     onChange={handleChange}
                 />
                 <button onClick={handleGenreAdd}>Add Genre</button>
-                <button id="save-profile-data-button" onClick={handleUpdate}>SAVE DATA</button>
+                <button id="save-profile-data-button" onClick={handleUpdate}>
+                    SAVE DATA
+                </button>
             </div>
         </main>
-    );
-};
+    )
+}

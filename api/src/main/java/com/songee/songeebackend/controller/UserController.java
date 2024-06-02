@@ -60,6 +60,8 @@ public class UserController {
                                 .firstName(profile.getFirstName())
                                 .gender(profile.getGender())
                                 .avatar(profile.getAvatar())
+                                .status(user.getStatus())
+                                .role(user.getRole())
                                 .build());
 
                 } else {

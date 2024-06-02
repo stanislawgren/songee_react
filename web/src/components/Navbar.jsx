@@ -1,23 +1,31 @@
-import { MenuList } from "./MenuList"
+import { MenuList } from './MenuList'
 
-export const Navbar = () => {
+export const Navbar = (props) => {
+
     return (
         <nav>
             <div className="nav-adapter">
-                <button className="nav-button" id="home-page-button" onClick={()=>{
-                    window.location.href = "/"
-                }}>
+                <button
+                    className="nav-button"
+                    id="home-page-button"
+                    onClick={() => {
+                        window.location.href = '/'
+                    }}
+                >
                     <span className="material-icons">home</span>
                 </button>
                 <a className="nav-title">SONGEE</a>
-                <button className="nav-button" id="menu-button" onClick={()=>{
-                    document.getElementsByClassName("custom-menu")[0].classList.toggle("menu-active")
-                }}>
+                <button
+                    className="nav-button"
+                    id="menu-button"
+                    onClick={() => {
+                        document.getElementsByClassName('custom-menu')[0].classList.toggle('menu-active')
+                    }}
+                >
                     <span className="material-icons">menu</span>
                 </button>
-                <MenuList />
+                <MenuList role={props.xuser?.role} />
             </div>
-            
         </nav>
     )
 }

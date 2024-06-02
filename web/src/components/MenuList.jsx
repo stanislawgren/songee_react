@@ -1,6 +1,11 @@
-export const MenuList = () => {
+export const MenuList = (props) => {
     return (
         <div className="custom-menu">
+            {props.role === 'ADMIN' ? (
+                <a className="custom-menu-button" href="/admin">
+                    Admin Panel
+                </a>
+            ) : null}
             <a className="custom-menu-button" href="/chat">
                 Chat
             </a>

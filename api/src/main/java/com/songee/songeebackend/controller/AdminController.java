@@ -1,2 +1,67 @@
-package com.songee.songeebackend.controller;public class AdminController {
+package com.songee.songeebackend.controller;
+
+import com.songee.songeebackend.dto.CommonResponse;
+import com.songee.songeebackend.dto.LikeRequest;
+import com.songee.songeebackend.dto.UserDto;
+import com.songee.songeebackend.entity.Likes;
+import com.songee.songeebackend.entity.User;
+import com.songee.songeebackend.entity.UserProfile;
+import com.songee.songeebackend.repository.UserProfileRepository;
+import com.songee.songeebackend.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/admin")
+@CrossOrigin("*")
+@RequiredArgsConstructor
+public class AdminController {
+    private final UserRepository repo;
+    private final UserProfileRepository profileRepo;
+
+    @PostMapping("/ban")
+    public ResponseEntity<CommonResponse> test (){
+        System.out.println("hejka naklejka");
+        return ResponseEntity.ok(CommonResponse.builder().status("ok").build());
+    }
+
+    @GetMapping("/users/list")
+    public ResponseEntity<List<UserDto>> getAllUsers(Principal principal) {
+        List<UserDto> userDtoList = new ArrayList<>();
+
+        User userOptional = repo.findByUsername(principal.getName()).orElseThrow();
+
+        List<User> users = repo.findAll();
+
+        for (User user : users) {
+
+
+                Optional<UserProfile> userProfile = profileRepo.findByUserId(user.getId());
+
+                UserProfile profile = userProfile.orElse(null); // Zwróć null, jeśli brak profilu
+
+                userDtoList.add(UserDto.builder()
+                        .username(user.getUsername())
+                        .id(user.getId())
+                        .mail(user.getMail())
+                        .age(profile != null ? profile.getAge() : null)
+                        .location(profile != null ? profile.getLocation() : null)
+                        .description(profile != null ? profile.getDescription() : null)
+                        .favouriteArtist(profile != null ? profile.getFavouriteArtist() : null)
+                        .favouriteSongTitle(profile != null ? profile.getFavouriteSongTitle() : null)
+                        .favouriteSongArtist(profile != null ? profile.getFavouriteSongArtist() : null)
+                        .lastName(profile != null ? profile.getLastName() : null)
+                        .firstName(profile != null ? profile.getFirstName() : null)
+                        .gender(profile != null ? profile.getGender() : null)
+                        .avatar(profile != null ? profile.getAvatar() : null)
+                        .build());
+            }
+        return ResponseEntity.ok(userDtoList);
+    }
 }

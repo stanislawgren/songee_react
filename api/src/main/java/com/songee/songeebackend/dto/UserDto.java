@@ -1,4 +1,5 @@
 package com.songee.songeebackend.dto;
+import com.songee.songeebackend.entity.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,4 +26,6 @@ public class UserDto {
     public int phone;
     public String location;
     public String avatar;
+    public int status;
+    public Enum<Role> role;
 }

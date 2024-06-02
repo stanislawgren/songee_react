@@ -10,6 +10,7 @@ import { SettingsPage } from '../pages/settings'
 import { ChatPage } from '../pages/chat'
 import { Page404 } from '../pages/404'
 import { ProfilePage } from '../pages/profile'
+import { AdminPage } from '../pages/admin'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path="chat" element={<ChatPage />}></Route>
                     <Route path="chat/:id" element={<ChatPage />}></Route>
                     <Route path="profile" element={<ProfilePage />}></Route>
+                    <Route path="admin" element={<AdminPage />}></Route>
                 </Route>
                 <Route path="*" element={<Page404 />} />
             </Routes>
