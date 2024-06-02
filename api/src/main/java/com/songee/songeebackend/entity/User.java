@@ -36,8 +36,13 @@ public class User implements UserDetails {
     @Column(name = "permissions", nullable = false)
     private int permissions;
 
+    @Getter
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Getter
+    @Column(name="status", nullable = false)
+    private int status = 0;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

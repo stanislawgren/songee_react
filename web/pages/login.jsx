@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
 
 export const LoginPage = () => {
     useEffect(() => {
@@ -13,7 +12,7 @@ export const LoginPage = () => {
     const [password, setPassword] = useState()
 
     const loginSevice = async () => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             axios({
                 method: 'POST',
                 url: 'http://localhost:8080' + '/api/auth/login',

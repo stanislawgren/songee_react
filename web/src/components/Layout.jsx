@@ -14,6 +14,8 @@ export const Layout = () => {
 
         let res = await getInitialUser()
 
+        console.log(res)
+
         if (res.status && res.status === 403) {
             localStorage.clear()
             window.location.href = '/login'
@@ -29,7 +31,7 @@ export const Layout = () => {
 
     return (
         <>
-            <Navbar />
+            <Navbar xuser={xuser ? xuser : null} />
             <Outlet context={[xuser]} />
         </>
     )

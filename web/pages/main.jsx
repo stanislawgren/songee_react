@@ -52,16 +52,16 @@ export const MainPage = () => {
                         type="text"
                         id="fav-song-artist"
                         className="profile-input"
-                        placeholder="Favorite song artist"
-                        value={xuser?.favouriteSongArtist ? xuser?.favouriteSongArtist : undefined}
+                        placeholder="Not set"
+                        value={xuser?.favouriteSongArtist ? xuser?.favouriteSongArtist : ""}
                         disabled
                     />
                     <input
                         type="text"
                         id="fav-song-title"
                         className="profile-input"
-                        placeholder="Favorite song title"
-                        value={xuser?.favouriteSongTitle ? xuser?.favouriteSongTitle : undefined}
+                        placeholder="Not set"
+                        value={xuser?.favouriteSongTitle ? xuser?.favouriteSongTitle : ""}
                         disabled
                     />
                     <h2>Favourite Artist</h2>
@@ -69,8 +69,8 @@ export const MainPage = () => {
                         type="text"
                         id="fav-artist"
                         className="profile-input"
-                        placeholder="Favourite artist"
-                        value={xuser?.favouriteArtist ? xuser?.favouriteArtist : undefined}
+                        placeholder="Not set"
+                        value={xuser?.favouriteArtist ? xuser?.favouriteArtist : ""}
                         disabled
                     />
                     {/* <h2>Favourite Genres</h2>
