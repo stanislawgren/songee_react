@@ -11,7 +11,6 @@ export const AdminPage = () => {
 
     const getUsers = async () => {
         let res = await getAdminUserList()
-        console.log(res)
         setUserList(res)
     }
 
@@ -34,6 +33,7 @@ export const AdminPage = () => {
                                   firstName={user.firstName}
                                   username={user.username}
                                   id={user.id}
+                                  status={user.status}
                               />
                           )
                       })

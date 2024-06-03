@@ -33,8 +33,6 @@ public class FileController {
             return ResponseEntity.badRequest().body("File is empty");
         }
 
-        System.out.println(principal.getName());
-
         User user = userRepository.findByUsername(principal.getName()).orElseThrow();
 
         UserProfile userProfile = userProfileRepository.findByUserId(user.getId()).orElseThrow();

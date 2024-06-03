@@ -76,8 +76,6 @@ export const ProfilePage = () => {
 
     const handleUpdate = async () => {
         let res = await updateUserDetails(formData)
-
-        console.log(res)
     }
 
     const getValue = (value) => (value === null ? '' : value)

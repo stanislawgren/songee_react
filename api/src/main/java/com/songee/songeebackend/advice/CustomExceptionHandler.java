@@ -18,8 +18,6 @@ public class CustomExceptionHandler {
     public ProblemDetail handleSecurityException(Exception ex){
         ProblemDetail error = null;
 
-        System.out.println(ex.getMessage());
-
         if (ex instanceof BadCredentialsException){
             error=ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(401), ex.getMessage());
             error.setProperty("error", "BAD_CREDENCIALS");

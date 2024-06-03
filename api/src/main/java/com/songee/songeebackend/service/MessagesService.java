@@ -39,7 +39,6 @@ public class MessagesService {
     }
 
     public CommonResponse sendChatMessage (MessagesDTO messagesDTO){
-        System.out.println(messagesDTO);
 
         User receiver = userRepository.findUserById(messagesDTO.receiver).orElseThrow(()->new RuntimeException("User not found"));
 

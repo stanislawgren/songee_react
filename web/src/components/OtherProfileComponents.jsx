@@ -8,7 +8,6 @@ export const OtherProfileComponent = ({ user, handleSwipe, xuser }) => {
 
     const handleLike = async (value) => {
         if (value) {
-            console.log(user.id)
             let res = await likeUser({ user_id: xuser.id, liked_id: user.id, value: 1 })
 
             if (res.status == "ok") {

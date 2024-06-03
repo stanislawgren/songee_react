@@ -1,2 +1,14 @@
-package com.songee.songeebackend.dto;public class BanRequest {
+package com.songee.songeebackend.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BanRequest {
+    public Integer user_id;
 }

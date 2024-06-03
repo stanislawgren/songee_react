@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const banUser = async () => {
+export const banUser = async (data) => {
     return new Promise((resolve, reject) => {
         axios({
             method: 'POST',
@@ -9,7 +9,7 @@ export const banUser = async () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
-            data: { xd: 'xd' },
+            data: data,
         })
             .then((result) => resolve(result.data))
             .catch((error) => resolve(error.response))

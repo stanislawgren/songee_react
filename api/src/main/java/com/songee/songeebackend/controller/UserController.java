@@ -30,8 +30,6 @@ public class UserController {
     @GetMapping("/user")
     public ResponseEntity<UserDto> getUser(Principal principal) {
         try {
-
-            System.out.println(principal.getName());
             Optional<User> userOptional = repo.findByUsername(principal.getName());
 
             if (userOptional.isPresent()) {
@@ -72,7 +70,6 @@ public class UserController {
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
@@ -146,14 +143,11 @@ public class UserController {
 
         UserProfile updatedUser = profileRepo.save(user);
 
-        System.out.println(updatedUser);
-
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<String> getUserById(@PathVariable Integer id){
-        System.out.println(id);
         Optional<User> userOptional = repo.findById(id);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
