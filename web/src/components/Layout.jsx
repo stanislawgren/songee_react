@@ -14,9 +14,7 @@ export const Layout = () => {
 
         let res = await getInitialUser()
 
-        console.log(res)
-
-        if (res.status && res.status === 403) {
+        if (res.status && (res.status === 403 || res.status === 2)) {
             localStorage.clear()
             window.location.href = '/login'
             return

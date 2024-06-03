@@ -1,5 +1,6 @@
 package com.songee.songeebackend.controller;
 
+import com.songee.songeebackend.dto.BanRequest;
 import com.songee.songeebackend.dto.CommonResponse;
 import com.songee.songeebackend.dto.LikeRequest;
 import com.songee.songeebackend.dto.UserDto;
@@ -8,6 +9,7 @@ import com.songee.songeebackend.entity.User;
 import com.songee.songeebackend.entity.UserProfile;
 import com.songee.songeebackend.repository.UserProfileRepository;
 import com.songee.songeebackend.repository.UserRepository;
+import com.songee.songeebackend.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +26,11 @@ import java.util.Optional;
 public class AdminController {
     private final UserRepository repo;
     private final UserProfileRepository profileRepo;
+    private final AdminService adminService;
 
     @PostMapping("/ban")
-    public ResponseEntity<CommonResponse> test (){
-        System.out.println("hejka naklejka");
-        return ResponseEntity.ok(CommonResponse.builder().status("ok").build());
+    public ResponseEntity<CommonResponse> test (@RequestBody BanRequest banRequest){
+        return ResponseEntity.ok(adminService.banUser(banRequest));
     }
 
     @GetMapping("/users/list")
@@ -39,8 +41,8 @@ public class AdminController {
 
         List<User> users = repo.findAll();
 
-        for (User user : users) {
 
+        for (User user : users) {
 
                 Optional<UserProfile> userProfile = profileRepo.findByUserId(user.getId());
 
@@ -60,6 +62,7 @@ public class AdminController {
                         .firstName(profile != null ? profile.getFirstName() : null)
                         .gender(profile != null ? profile.getGender() : null)
                         .avatar(profile != null ? profile.getAvatar() : null)
+                        .status(user.getStatus())
                         .build());
             }
         return ResponseEntity.ok(userDtoList);
