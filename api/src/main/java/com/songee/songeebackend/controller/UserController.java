@@ -144,7 +144,7 @@ public class UserController {
 
         UserProfile updatedUser = profileRepo.save(user);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @GetMapping("/user/{id}")
