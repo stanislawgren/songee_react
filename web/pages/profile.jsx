@@ -75,7 +75,10 @@ export const ProfilePage = () => {
     }, [xuser])
 
     const handleUpdate = async () => {
+        console.log(formData)
         let res = await updateUserDetails(formData)
+
+        console.log(res)
     }
 
     const getValue = (value) => (value === null ? '' : value)
