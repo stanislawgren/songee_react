@@ -19,7 +19,7 @@ export const updateUserDetails = async (data) => {
     return new Promise((resolve, reject) => {
         axios({
             method: 'PUT',
-            url: 'http://localhost:8080' + 'HOTFIX',
+            url: 'http://localhost:8080' + '/api/user/update/details',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
