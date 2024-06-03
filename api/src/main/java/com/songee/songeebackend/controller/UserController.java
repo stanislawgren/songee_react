@@ -1,5 +1,6 @@
 package com.songee.songeebackend.controller;
 
+import com.songee.songeebackend.dto.UserDTO2;
 import com.songee.songeebackend.dto.UserDto;
 import com.songee.songeebackend.entity.Likes;
 import com.songee.songeebackend.entity.User;
@@ -122,7 +123,7 @@ public class UserController {
     }
 
     @PutMapping("/user/update/details")
-    public ResponseEntity<UserProfile> updateUserDetails(@RequestBody UserDto userDTO) {
+    public ResponseEntity<UserProfile> updateUserDetails(@RequestBody UserDTO2 userDTO) {
         Optional<UserProfile> optionalUser = profileRepo.findByUserId(userDTO.id);
 
         if (!optionalUser.isPresent()) {
